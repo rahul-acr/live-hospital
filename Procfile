@@ -1,1 +1,1 @@
-web: java -jar --port $PORT lh-assembly/target/lh-assembly-1.0-SNAPSHOT.jar
+web: java -jar lh-assembly/target/lh-assembly-1.0-SNAPSHOT.jar --server.port=$PORT
