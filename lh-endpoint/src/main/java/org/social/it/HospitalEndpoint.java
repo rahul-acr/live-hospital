@@ -11,7 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/hospital/")
+@RequestMapping("/api/hospital")
 public class HospitalEndpoint {
 
     @Autowired
