@@ -17,7 +17,7 @@ public class HospitalDtoDomainConverter implements DtoDomainConverter<HospitalDt
     public Hospital convert(HospitalDto input) {
         return new HospitalEntity(input._id,
                 input.name,
-                (LocationEntity) locationDtoDomainConverter.convert(input.location),
+                input.additionalInfo, (LocationEntity) locationDtoDomainConverter.convert(input.location),
                 input.totalBedCapacity,
                 input.currentBedUsage);
     }

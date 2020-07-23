@@ -6,17 +6,18 @@ public interface Hospital extends Identifiable<ObjectId> {
 
     String name();
 
+    String additionalInfo();
+
     Location location();
 
     int totalBedCapacity();
 
-    int currentBedUsage();
+    int currentVacancy();
 
     default int usagePercentage() {
-        return (currentBedUsage() * 100) / totalBedCapacity();
+        return ((totalBedCapacity() - currentVacancy()) * 100) / totalBedCapacity();
     }
 
-    void admitPatients(int patientCount);
+    void updateUsage(int newVacancy, int newBedCapacity);
 
-    void dischargePatients(int patientCount);
 }

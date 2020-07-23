@@ -18,7 +18,7 @@ public class HospitalDomainDtoConverter implements DomainDtoConverter<Hospital, 
         dto.totalBedCapacity = input.totalBedCapacity();
         dto.name = input.name();
         dto.location = locationDomainDtoConverter.convert(input.location());
-        dto.currentBedUsage = input.currentBedUsage();
+        dto.currentBedUsage = input.currentVacancy();
         return dto;
     }
 }

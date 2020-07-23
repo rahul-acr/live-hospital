@@ -9,28 +9,34 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("hospitals")
 public class HospitalEntity implements Hospital {
 
+    private final String name;
+    private final String additionalInfo;
+    private final LocationEntity location;
     @Id
     private ObjectId id;
-    private String name;
-
-    private LocationEntity location;
     private int totalBedCapacity;
-    private int currentBedUsage;
+    private int vacantBeds;
 
     public HospitalEntity(ObjectId id,
                           String name,
+                          String additionalInfo,
                           LocationEntity location,
                           int totalBedCapacity,
-                          int currentBedUsage) {
+                          int vacantBeds) {
         this.id = id;
         this.name = name;
+        this.additionalInfo = additionalInfo;
         this.location = location;
         this.totalBedCapacity = totalBedCapacity;
-        this.currentBedUsage = currentBedUsage;
+        this.vacantBeds = vacantBeds;
     }
 
-    private HospitalEntity() {
-
+    public HospitalEntity(String name,
+                          String additionalInfo,
+                          LocationEntity location,
+                          int totalBedCapacity,
+                          int vacantBeds) {
+        this(null, name, additionalInfo, location, totalBedCapacity, vacantBeds);
     }
 
     public ObjectId getId() {
@@ -41,6 +47,10 @@ public class HospitalEntity implements Hospital {
         return name;
     }
 
+    public String additionalInfo() {
+        return additionalInfo;
+    }
+
     public Location location() {
         return location;
     }
@@ -49,24 +59,16 @@ public class HospitalEntity implements Hospital {
         return totalBedCapacity;
     }
 
-    public int currentBedUsage() {
-        return currentBedUsage;
+    public int currentVacancy() {
+        return vacantBeds;
     }
 
-    public void admitPatients(int patientCount) {
-        if ((currentBedUsage + patientCount) > totalBedCapacity) {
-            throw new IllegalStateException(String.format("Current bed usage %d can not handle new %d patients",
-                    currentBedUsage, patientCount));
-        }
-        currentBedUsage += totalBedCapacity;
+    @Override
+    public void updateUsage(int newVacancy, int newBedCapacity) {
+        if (newVacancy < 0) throw new IllegalArgumentException("Usage can not be negative");
+        this.vacantBeds = newVacancy;
+        if (newBedCapacity < 0) throw new IllegalArgumentException("Bed capacity can not be negative");
+        this.totalBedCapacity = newBedCapacity;
     }
 
-    public void dischargePatients(int patientCount) {
-        if (currentBedUsage < patientCount) {
-            throw new IllegalStateException(
-                    String.format("Can not discharge %d patients as only %d patients are admitted currently",
-                            patientCount, currentBedUsage));
-        }
-        currentBedUsage += totalBedCapacity;
-    }
 }

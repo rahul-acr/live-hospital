@@ -1,4 +1,4 @@
-package org.social.it;
+package org.social.it.endpoint;
 
 import org.bson.types.ObjectId;
 import org.social.it.dto.HospitalDto;
@@ -27,15 +27,15 @@ public class HospitalEndpoint {
         return hospitalService.findById(id).orElseThrow(
                 () -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Hospital not found"));
     }
-
-    @PostMapping
-    public HospitalDto post(@RequestBody HospitalDto hospitalDto){
-        return hospitalService.save(hospitalDto);
-    }
-
-    @PutMapping("/{id}")
-    public HospitalDto update(@RequestBody HospitalDto hospitalDto){
-        return hospitalService.update(hospitalDto);
-    }
+//
+//    @PostMapping
+//    public HospitalDto post(@RequestBody HospitalDto hospitalDto){
+//        return hospitalService.save(hospitalDto);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public HospitalDto update(@RequestBody HospitalDto hospitalDto){
+//        return hospitalService.update(hospitalDto);
+//    }
 
 }

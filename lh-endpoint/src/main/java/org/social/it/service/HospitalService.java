@@ -40,21 +40,21 @@ public class HospitalService extends BaseCrudService<Hospital, HospitalDto> {
                 .collect(Collectors.toList());
     }
 
-    public HospitalDto update(HospitalDto hospitalDto){
-        Hospital hospital = convertToDomain(hospitalDto);
-        if(hospital.getId() == null)
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid update operation");
-        if(!hospitalRepository.existsById(hospital.getId()))
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Hospital not found");
-        return save(hospital);
-    }
-
-    private HospitalDto save(Hospital hospital){
-        return convertToDto(hospitalRepository.save((HospitalEntity) hospital));
-    }
-
-    public HospitalDto save(HospitalDto hospitalDto){
-        return save(convertToDomain(hospitalDto));
-    }
+//    public HospitalDto update(HospitalDto hospitalDto){
+//        Hospital hospital = convertToDomain(hospitalDto);
+//        if(hospital.getId() == null)
+//            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid update operation");
+//        if(!hospitalRepository.existsById(hospital.getId()))
+//            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Hospital not found");
+//        return save(hospital);
+//    }
+//
+//    private HospitalDto save(Hospital hospital){
+//        return convertToDto(hospitalRepository.save((HospitalEntity) hospital));
+//    }
+//
+//    public HospitalDto save(HospitalDto hospitalDto){
+//        return save(convertToDomain(hospitalDto));
+//    }
 
 }
