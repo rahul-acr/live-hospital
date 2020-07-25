@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("hospitals")
 public class HospitalEntity implements Hospital {
 
-    private final String name;
-    private final String additionalInfo;
-    private final LocationEntity location;
+    private String name;
+    private String additionalInfo;
+    private LocationEntity location;
     @Id
     private ObjectId id;
     private int totalBedCapacity;
@@ -37,6 +37,10 @@ public class HospitalEntity implements Hospital {
                           int totalBedCapacity,
                           int vacantBeds) {
         this(null, name, additionalInfo, location, totalBedCapacity, vacantBeds);
+    }
+
+    private HospitalEntity(){
+
     }
 
     public ObjectId getId() {
@@ -71,4 +75,15 @@ public class HospitalEntity implements Hospital {
         this.totalBedCapacity = newBedCapacity;
     }
 
+    @Override
+    public String toString() {
+        return "HospitalEntity{" +
+                "name='" + name + '\'' +
+                ", additionalInfo='" + additionalInfo + '\'' +
+                ", location=" + location +
+                ", id=" + id +
+                ", totalBedCapacity=" + totalBedCapacity +
+                ", vacantBeds=" + vacantBeds +
+                '}';
+    }
 }

@@ -44,8 +44,8 @@ public class FeedProcessorImpl implements FeedProcessor {
     }
 
     private Optional<HospitalEntity> match(ExtractionPayLoad extractionPayLoad, List<HospitalEntity> hospitals) {
-        String[] keywords = extractionPayLoad.keywords();
-        Map<HospitalEntity, Integer> matchMap = new HashMap<>();
+        final String[] keywords = extractionPayLoad.keywords();
+        final Map<HospitalEntity, Integer> matchMap = new HashMap<>();
 
         int highestMatch = 0;
         for (HospitalEntity hospital : hospitals) {
@@ -65,7 +65,8 @@ public class FeedProcessorImpl implements FeedProcessor {
         int highestMatchCount = 0;
         HospitalEntity matchedHospital = null;
         for (HospitalEntity hospital : hospitals) {
-            if(matchMap.get(hospital) == highestMatch){
+            Integer hMatch = matchMap.get(hospital);
+            if(hMatch != null && hMatch == highestMatch){
                 highestMatchCount++;
                 matchedHospital = hospital;
             }

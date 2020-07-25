@@ -51,9 +51,9 @@
                         </goals>
                     </execution>
                 </executions>
-<!--                <configuration>-->
-<!--                    <mainClass>org.social.it.Driver</mainClass>-->
-<!--                </configuration>-->
+                <configuration>
+                    <mainClass>org.social.it.Driver</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
