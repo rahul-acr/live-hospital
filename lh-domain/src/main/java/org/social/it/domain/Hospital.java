@@ -8,7 +8,7 @@ public interface Hospital extends Identifiable<ObjectId> {
 
     String additionalInfo();
 
-    Location location();
+    Contact contact();
 
     UsageStatistics usage();
 

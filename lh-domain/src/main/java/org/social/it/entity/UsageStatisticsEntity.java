@@ -16,6 +16,10 @@ public class UsageStatisticsEntity implements UsageStatistics {
         this.lastUpdated = LocalDate.now();
     }
 
+    private UsageStatisticsEntity(){
+        
+    }
+
     public int totalBedCapacity() {
         return totalBedCapacity;
     }

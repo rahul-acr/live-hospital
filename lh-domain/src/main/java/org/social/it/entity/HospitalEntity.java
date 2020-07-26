@@ -1,8 +1,8 @@
 package org.social.it.entity;
 
 import org.bson.types.ObjectId;
+import org.social.it.domain.Contact;
 import org.social.it.domain.Hospital;
-import org.social.it.domain.Location;
 import org.social.it.domain.UsageStatistics;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,14 +13,14 @@ public class HospitalEntity implements Hospital {
     private ObjectId id;
     private String name;
     private String additionalInfo;
-    private LocationEntity location;
+    private ContactEntity location;
     private UsageStatisticsEntity usageStatistics;
     private boolean isPrivate;
 
     public HospitalEntity(ObjectId id,
                           String name,
                           String additionalInfo,
-                          LocationEntity location,
+                          ContactEntity location,
                           boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
@@ -34,7 +34,7 @@ public class HospitalEntity implements Hospital {
 
     public HospitalEntity(String name,
                           String additionalInfo,
-                          LocationEntity location,
+                          ContactEntity location,
                           boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
@@ -57,7 +57,7 @@ public class HospitalEntity implements Hospital {
         return additionalInfo;
     }
 
-    public Location location() {
+    public Contact contact() {
         return location;
     }
 

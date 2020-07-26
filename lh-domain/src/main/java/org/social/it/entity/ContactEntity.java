@@ -1,25 +1,37 @@
 package org.social.it.entity;
 
-import org.social.it.domain.Location;
+import org.social.it.domain.Contact;
 
-public class LocationEntity implements Location {
+public class ContactEntity implements Contact {
 
     private String addressLine;
     private String district;
     private String state;
     private String country;
+    private String phoneNumber;
     private int pinCode;
 
-    public LocationEntity(String addressLine, String district, String state, String country, int pinCode) {
+    public ContactEntity(String addressLine,
+                         String district,
+                         String state,
+                         String country,
+                         int pinCode,
+                         String phoneNumber) {
         this.addressLine = addressLine;
         this.district = district;
         this.state = state;
         this.country = country;
         this.pinCode = pinCode;
+        this.phoneNumber = phoneNumber;
     }
 
-    private LocationEntity(){
+    private ContactEntity() {
 
+    }
+
+    @Override
+    public String phoneNumber() {
+        return phoneNumber;
     }
 
     public String addressLine() {
