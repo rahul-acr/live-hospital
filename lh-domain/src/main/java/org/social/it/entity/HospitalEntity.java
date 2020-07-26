@@ -13,32 +13,32 @@ public class HospitalEntity implements Hospital {
     private ObjectId id;
     private String name;
     private String additionalInfo;
-    private ContactEntity location;
+    private ContactEntity contact;
     private UsageStatisticsEntity usageStatistics;
     private boolean isPrivate;
 
     public HospitalEntity(ObjectId id,
                           String name,
                           String additionalInfo,
-                          ContactEntity location,
+                          ContactEntity contact,
                           boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
         this.id = id;
         this.name = name;
         this.additionalInfo = additionalInfo;
-        this.location = location;
+        this.contact = contact;
         this.isPrivate = isPrivate;
         this.usageStatistics = new UsageStatisticsEntity(totalBedCapacity, vacantBeds);
     }
 
     public HospitalEntity(String name,
                           String additionalInfo,
-                          ContactEntity location,
+                          ContactEntity contact,
                           boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
-        this(null, name, additionalInfo, location, isPrivate, totalBedCapacity, vacantBeds);
+        this(null, name, additionalInfo, contact, isPrivate, totalBedCapacity, vacantBeds);
     }
 
     private HospitalEntity() {
@@ -58,7 +58,7 @@ public class HospitalEntity implements Hospital {
     }
 
     public Contact contact() {
-        return location;
+        return contact;
     }
 
     public UsageStatistics usage() {
