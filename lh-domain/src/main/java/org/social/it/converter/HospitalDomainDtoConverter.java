@@ -20,7 +20,7 @@ public class HospitalDomainDtoConverter implements DomainDtoConverter<Hospital, 
         dto._id = hospital.getId();
         dto.name = hospital.name();
         dto.additionalInfo = hospital.additionalInfo();
-        dto.location = contactDomainDtoConverter.convert(hospital.contact());
+        dto.contact = contactDomainDtoConverter.convert(hospital.contact());
         dto.usage = usageStatDomainDtoConverter.convert(hospital.usage());
         return dto;
     }
