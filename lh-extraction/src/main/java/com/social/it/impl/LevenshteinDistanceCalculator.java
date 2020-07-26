@@ -1,8 +1,9 @@
 package com.social.it.impl;
 
 import com.social.it.WordDistanceCalculator;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class LevenshteinDistanceCalculator implements WordDistanceCalculator {
 
     private static int min(int a, int b, int c) {

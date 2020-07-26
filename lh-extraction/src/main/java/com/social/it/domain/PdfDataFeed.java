@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 
 public class PdfDataFeed implements DataFeed {
@@ -13,6 +14,11 @@ public class PdfDataFeed implements DataFeed {
 
     public PdfDataFeed(File file) throws IOException {
         document = PDDocument.load(file);
+        feedDate = LocalDate.now();
+    }
+
+    public PdfDataFeed(URL url) throws IOException {
+        document = PDDocument.load(url.openStream());
         feedDate = LocalDate.now();
     }
 
