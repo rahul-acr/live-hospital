@@ -17,7 +17,7 @@ public class UsageStatisticsEntity implements UsageStatistics {
     }
 
     private UsageStatisticsEntity(){
-        
+
     }
 
     public int totalBedCapacity() {
@@ -35,7 +35,7 @@ public class UsageStatisticsEntity implements UsageStatistics {
     public void updateUsage(int newVacancy, int newBedCapacity) {
         if (newVacancy < 0) throw new IllegalArgumentException("Usage can not be negative");
         this.vacantBeds = newVacancy;
-        if (newBedCapacity < 0) throw new IllegalArgumentException("Bed capacity can not be negative");
+        if (newBedCapacity <= 0) throw new IllegalArgumentException("Bed capacity can not be negative");
         this.totalBedCapacity = newBedCapacity;
         this.lastUpdated = LocalDate.now();
     }
