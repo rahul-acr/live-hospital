@@ -22,27 +22,22 @@ public class LocationEntity implements Location {
 
     }
 
-    @Override
     public String addressLine() {
         return addressLine;
     }
 
-    @Override
     public String district() {
         return district;
     }
 
-    @Override
     public int pinCode() {
         return pinCode;
     }
 
-    @Override
     public String state() {
         return state;
     }
 
-    @Override
     public String country() {
         return country;
     }

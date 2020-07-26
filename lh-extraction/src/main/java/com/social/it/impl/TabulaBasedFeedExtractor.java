@@ -69,11 +69,12 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
 
     private static class NameAdditionalInfoExtractor {
 
-        private static final String REGEX = "([a-zA-Z,\\s.]+)[\\-(\\[]?([a-zA-Z\\s.]*)[)\\]]?";
+        private static final String REGEX = "([a-zA-Z,\\s.]+)[\\-(\\[{]?([a-zA-Z\\s.]*)[})\\]]?";
         private static final Pattern PATTERN = Pattern.compile(REGEX);
 
         String[] extract(String line) {
             LOG.info("Extracting name & additional info '{}'", line);
+            line = line.replace("#", "");
             Matcher matcher = PATTERN.matcher(line);
             if (matcher.find()) {
                 return new String[]{matcher.group(1), matcher.group(2)};

@@ -6,6 +6,5 @@ public class HospitalDto extends Identifiable<ObjectId>{
     public String name;
     public String additionalInfo;
     public LocationDto location;
-    public int totalBedCapacity;
-    public int currentBedUsage;
+    public UsageStatsDto usage;
 }

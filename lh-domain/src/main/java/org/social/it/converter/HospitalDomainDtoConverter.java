@@ -11,14 +11,17 @@ public class HospitalDomainDtoConverter implements DomainDtoConverter<Hospital, 
     @Autowired
     private LocationDomainDtoConverter locationDomainDtoConverter;
 
+    @Autowired
+    private UsageStatDomainDtoConverter usageStatDomainDtoConverter;
+
     @Override
-    public HospitalDto convert(Hospital input) {
+    public HospitalDto convert(Hospital hospital) {
         HospitalDto dto = new HospitalDto();
-        dto._id = input.getId();
-        dto.totalBedCapacity = input.totalBedCapacity();
-        dto.name = input.name();
-        dto.location = locationDomainDtoConverter.convert(input.location());
-        dto.currentBedUsage = input.currentVacancy();
+        dto._id = hospital.getId();
+        dto.name = hospital.name();
+        dto.additionalInfo = hospital.additionalInfo();
+        dto.location = locationDomainDtoConverter.convert(hospital.location());
+        dto.usage = usageStatDomainDtoConverter.convert(hospital.usage());
         return dto;
     }
 }

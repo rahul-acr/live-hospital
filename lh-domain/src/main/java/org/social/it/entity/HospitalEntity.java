@@ -3,43 +3,45 @@ package org.social.it.entity;
 import org.bson.types.ObjectId;
 import org.social.it.domain.Hospital;
 import org.social.it.domain.Location;
+import org.social.it.domain.UsageStatistics;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("hospitals")
 public class HospitalEntity implements Hospital {
-
+    @Id
+    private ObjectId id;
     private String name;
     private String additionalInfo;
     private LocationEntity location;
-    @Id
-    private ObjectId id;
-    private int totalBedCapacity;
-    private int vacantBeds;
+    private UsageStatisticsEntity usageStatistics;
+    private boolean isPrivate;
 
     public HospitalEntity(ObjectId id,
                           String name,
                           String additionalInfo,
                           LocationEntity location,
+                          boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
         this.id = id;
         this.name = name;
         this.additionalInfo = additionalInfo;
         this.location = location;
-        this.totalBedCapacity = totalBedCapacity;
-        this.vacantBeds = vacantBeds;
+        this.isPrivate = isPrivate;
+        this.usageStatistics = new UsageStatisticsEntity(totalBedCapacity, vacantBeds);
     }
 
     public HospitalEntity(String name,
                           String additionalInfo,
                           LocationEntity location,
+                          boolean isPrivate,
                           int totalBedCapacity,
                           int vacantBeds) {
-        this(null, name, additionalInfo, location, totalBedCapacity, vacantBeds);
+        this(null, name, additionalInfo, location, isPrivate, totalBedCapacity, vacantBeds);
     }
 
-    private HospitalEntity(){
+    private HospitalEntity() {
 
     }
 
@@ -59,31 +61,11 @@ public class HospitalEntity implements Hospital {
         return location;
     }
 
-    public int totalBedCapacity() {
-        return totalBedCapacity;
+    public UsageStatistics usage() {
+        return usageStatistics;
     }
 
-    public int currentVacancy() {
-        return vacantBeds;
-    }
-
-    @Override
-    public void updateUsage(int newVacancy, int newBedCapacity) {
-        if (newVacancy < 0) throw new IllegalArgumentException("Usage can not be negative");
-        this.vacantBeds = newVacancy;
-        if (newBedCapacity < 0) throw new IllegalArgumentException("Bed capacity can not be negative");
-        this.totalBedCapacity = newBedCapacity;
-    }
-
-    @Override
-    public String toString() {
-        return "HospitalEntity{" +
-                "name='" + name + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", location=" + location +
-                ", id=" + id +
-                ", totalBedCapacity=" + totalBedCapacity +
-                ", vacantBeds=" + vacantBeds +
-                '}';
+    public boolean isPrivate() {
+        return isPrivate;
     }
 }

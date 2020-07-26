@@ -10,14 +10,8 @@ public interface Hospital extends Identifiable<ObjectId> {
 
     Location location();
 
-    int totalBedCapacity();
+    UsageStatistics usage();
 
-    int currentVacancy();
-
-    default int usagePercentage() {
-        return ((totalBedCapacity() - currentVacancy()) * 100) / totalBedCapacity();
-    }
-
-    void updateUsage(int newVacancy, int newBedCapacity);
+    boolean isPrivate();
 
 }

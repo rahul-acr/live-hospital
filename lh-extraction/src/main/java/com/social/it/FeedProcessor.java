@@ -1,7 +1,9 @@
 package com.social.it;
 
+import com.social.it.domain.ExtractionResult;
+
 public interface FeedProcessor {
 
-    void process(DataFeed dataFeed);
+    ExtractionResult process(DataFeed dataFeed);
 
 }
