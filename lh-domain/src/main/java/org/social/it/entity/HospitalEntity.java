@@ -1,32 +1,44 @@
 package org.social.it.entity;
 
 import org.bson.types.ObjectId;
+import org.social.it.domain.Contact;
 import org.social.it.domain.Hospital;
-import org.social.it.domain.Location;
+import org.social.it.domain.UsageStatistics;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("hospitals")
 public class HospitalEntity implements Hospital {
-
     @Id
     private ObjectId id;
     private String name;
-
-    private LocationEntity location;
-    private int totalBedCapacity;
-    private int currentBedUsage;
+    private String additionalInfo;
+    private ContactEntity contact;
+    private UsageStatisticsEntity usageStatistics;
+    private boolean isPrivate;
 
     public HospitalEntity(ObjectId id,
                           String name,
-                          LocationEntity location,
+                          String additionalInfo,
+                          ContactEntity contact,
+                          boolean isPrivate,
                           int totalBedCapacity,
-                          int currentBedUsage) {
+                          int vacantBeds) {
         this.id = id;
         this.name = name;
-        this.location = location;
-        this.totalBedCapacity = totalBedCapacity;
-        this.currentBedUsage = currentBedUsage;
+        this.additionalInfo = additionalInfo;
+        this.contact = contact;
+        this.isPrivate = isPrivate;
+        this.usageStatistics = new UsageStatisticsEntity(totalBedCapacity, vacantBeds);
+    }
+
+    public HospitalEntity(String name,
+                          String additionalInfo,
+                          ContactEntity contact,
+                          boolean isPrivate,
+                          int totalBedCapacity,
+                          int vacantBeds) {
+        this(null, name, additionalInfo, contact, isPrivate, totalBedCapacity, vacantBeds);
     }
 
     private HospitalEntity() {
@@ -41,32 +53,19 @@ public class HospitalEntity implements Hospital {
         return name;
     }
 
-    public Location location() {
-        return location;
+    public String additionalInfo() {
+        return additionalInfo;
     }
 
-    public int totalBedCapacity() {
-        return totalBedCapacity;
+    public Contact contact() {
+        return contact;
     }
 
-    public int currentBedUsage() {
-        return currentBedUsage;
+    public UsageStatistics usage() {
+        return usageStatistics;
     }
 
-    public void admitPatients(int patientCount) {
-        if ((currentBedUsage + patientCount) > totalBedCapacity) {
-            throw new IllegalStateException(String.format("Current bed usage %d can not handle new %d patients",
-                    currentBedUsage, patientCount));
-        }
-        currentBedUsage += totalBedCapacity;
-    }
-
-    public void dischargePatients(int patientCount) {
-        if (currentBedUsage < patientCount) {
-            throw new IllegalStateException(
-                    String.format("Can not discharge %d patients as only %d patients are admitted currently",
-                            patientCount, currentBedUsage));
-        }
-        currentBedUsage += totalBedCapacity;
+    public boolean isPrivate() {
+        return isPrivate;
     }
 }

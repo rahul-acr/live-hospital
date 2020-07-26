@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 public class HospitalDto extends Identifiable<ObjectId>{
     public String name;
-    public LocationDto location;
-    public int totalBedCapacity;
-    public int currentBedUsage;
+    public String additionalInfo;
+    public ContactDto location;
+    public UsageStatsDto usage;
 }

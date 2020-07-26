@@ -1,6 +1,8 @@
 package org.social.it.domain;
 
-public interface Location{
+public interface Contact {
+
+    String phoneNumber();
 
     String addressLine();
 
