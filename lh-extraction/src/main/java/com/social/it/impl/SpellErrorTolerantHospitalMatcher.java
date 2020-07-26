@@ -37,9 +37,13 @@ public class SpellErrorTolerantHospitalMatcher implements HospitalMatcher {
         return Optional.ofNullable(matchedHospital);
     }
 
+    private static String emptyIfNull(String data){
+        return data == null ? "" : data;
+    }
+
     private int calculateDifference(ExtractionPayLoad extractionPayLoad, HospitalEntity hospital) {
         return wordDistanceCalculator.calculateDistance(
-                extractionPayLoad.hospitalName() + " " + extractionPayLoad.additionalInfo(),
-                hospital.name() + " " + hospital.additionalInfo());
+                extractionPayLoad.hospitalName() + " " + emptyIfNull(extractionPayLoad.additionalInfo()),
+                hospital.name() + " " + emptyIfNull(hospital.additionalInfo()));
     }
 }

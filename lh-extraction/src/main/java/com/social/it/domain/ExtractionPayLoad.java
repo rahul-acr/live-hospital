@@ -12,7 +12,7 @@ public class ExtractionPayLoad {
             throw new IllegalArgumentException("Invalid hospital name");
         this.hospitalName = builder.hospitalName.trim();
 
-        this.additionalInfo = builder.additionalInfo;
+        this.additionalInfo = builder.additionalInfo == null ? null : builder.additionalInfo.trim() ;
 
         if (builder.totalBeds <= 0)
             throw new IllegalArgumentException("Total bed can not be zero");
