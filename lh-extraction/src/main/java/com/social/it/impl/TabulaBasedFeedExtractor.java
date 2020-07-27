@@ -91,7 +91,7 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
 
     private static class NameAdditionalInfoExtractor {
 
-        private static final String REGEX = "([a-zA-Z,&\\s.]+)-?[\\-(\\[{]?([a-zA-Z\\s.]*)[})\\]]?";
+        private static final String REGEX = "([a-zA-Z,&\\s.]+)\\s*-?\\s*[\\-(\\[{]?([a-zA-Z\\s.]*)[})\\]]?";
         private static final Pattern PATTERN = Pattern.compile(REGEX);
 
         String[] extract(String line) {
