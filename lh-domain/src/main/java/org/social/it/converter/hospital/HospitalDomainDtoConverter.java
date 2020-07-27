@@ -1,5 +1,6 @@
-package org.social.it.converter;
+package org.social.it.converter.hospital;
 
+import org.social.it.converter.DomainDtoConverter;
 import org.social.it.domain.Hospital;
 import org.social.it.dto.HospitalDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class HospitalDomainDtoConverter implements DomainDtoConverter<Hospital, 
         dto.additionalInfo = hospital.additionalInfo();
         dto.contact = contactDomainDtoConverter.convert(hospital.contact());
         dto.usage = usageStatDomainDtoConverter.convert(hospital.usage());
+        dto.isPrivate = hospital.isPrivate();
         return dto;
     }
 }
