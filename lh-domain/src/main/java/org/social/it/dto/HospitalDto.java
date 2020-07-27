@@ -7,4 +7,5 @@ public class HospitalDto extends Identifiable<ObjectId>{
     public String additionalInfo;
     public ContactDto contact;
     public UsageStatsDto usage;
+    public boolean isPrivate;
 }
