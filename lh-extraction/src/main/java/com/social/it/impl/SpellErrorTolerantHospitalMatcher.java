@@ -22,19 +22,28 @@ public class SpellErrorTolerantHospitalMatcher implements HospitalMatcher {
     @Autowired
     private WordDistanceCalculator wordDistanceCalculator;
 
+    private static String trimToNull(String data){
+        if(data.trim().equals("")) return null;
+        return data;
+    }
+
     @Override
     public Optional<HospitalEntity> match(ExtractionPayLoad extractionPayLoad, List<HospitalEntity> hospitals) {
         HospitalEntity matchedHospital = null;
         int matchCount = 0;
         for (HospitalEntity hospital : hospitals) {
-            int dist = 100 * calculateDifference(extractionPayLoad, hospital);
+            if(!areHospitalsComparable(extractionPayLoad, hospital)) continue;
+
+            // WARNING : Not considering additional info as it varies greatly feed to feed.
+            // Also assuming one hospital does not have more than one specialization.
+            int dist = 100 * wordDistanceCalculator.calculateDistance(extractionPayLoad.hospitalName(), hospital.name());
             if (dist / hospital.name().length() <= SPELL_FAULT_TOLERANCE_PERCENTAGE) {
                 matchCount++;
                 matchedHospital = hospital;
             }
         }
 
-        if(matchCount > 1){
+        if (matchCount > 1) {
             LOG.warn("Ambiguous data found for {} ", extractionPayLoad);
             return Optional.empty();
         }
@@ -42,13 +51,11 @@ public class SpellErrorTolerantHospitalMatcher implements HospitalMatcher {
         return Optional.ofNullable(matchedHospital);
     }
 
-    private static String emptyIfNull(String data){
-        return data == null ? "" : data;
+    // If a hospital has special info (is specialized), don't compare it with regular hospitals
+    private boolean areHospitalsComparable(ExtractionPayLoad extractionPayLoad, HospitalEntity hospital){
+        boolean payloadHasAddInfo = trimToNull(extractionPayLoad.additionalInfo()) != null;
+        boolean hospitalHasAddInfo = trimToNull(hospital.additionalInfo()) != null;
+        return payloadHasAddInfo == hospitalHasAddInfo;
     }
 
-    private int calculateDifference(ExtractionPayLoad extractionPayLoad, HospitalEntity hospital) {
-        return wordDistanceCalculator.calculateDistance(
-                extractionPayLoad.hospitalName() + " " + emptyIfNull(extractionPayLoad.additionalInfo()),
-                hospital.name() + " " + emptyIfNull(hospital.additionalInfo()));
-    }
 }
