@@ -14,8 +14,6 @@ public interface UsageStatistics {
         return ((totalBedCapacity() - currentVacancy()) * 100) / totalBedCapacity();
     }
 
-    void updateUsage(int newVacancy, int newBedCapacity);
-
     default boolean isStale(){
         return lastUpdated() == null || !lastUpdated().isEqual(LocalDate.now());
     }
