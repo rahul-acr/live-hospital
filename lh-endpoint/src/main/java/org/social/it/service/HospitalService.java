@@ -1,16 +1,12 @@
 package org.social.it.service;
 
 import org.bson.types.ObjectId;
-import org.social.it.converter.HospitalDomainDtoConverter;
-import org.social.it.converter.HospitalDtoDomainConverter;
+import org.social.it.converter.hospital.HospitalDomainDtoConverter;
 import org.social.it.domain.Hospital;
 import org.social.it.dto.HospitalDto;
-import org.social.it.entity.HospitalEntity;
 import org.social.it.repository.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +20,8 @@ public class HospitalService extends BaseCrudService<Hospital, HospitalDto> {
     private HospitalRepository hospitalRepository;
 
     @Autowired
-    public HospitalService(HospitalDomainDtoConverter domainDtoConverter,
-                           HospitalDtoDomainConverter dtoDomainConverter) {
-        super(domainDtoConverter, dtoDomainConverter);
+    public HospitalService(HospitalDomainDtoConverter domainDtoConverter) {
+        super(domainDtoConverter);
     }
 
     public Optional<HospitalDto> findById(ObjectId id){
