@@ -60,15 +60,15 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
             DataExtractionException.throwIf(table == null, "No valid tables found in page");
 
             LOG.info("{} - total rows found ", table.getRowCount());
-            for (int row = 4; row < table.getRowCount(); row++) {
+            for (int row = 0; row < table.getRowCount(); row++) {
                 try {
                     read(dataFeed, table, row).ifPresent(payLoad -> {
                         payLoads.add(payLoad);
                         LOG.info("Added payload {}", payLoad);
                     });
-                } catch(Exception e){
-                    LOG.error("Failed to extract data ! row : {} page : {} of {}", row, pageNo, dataFeed.feedName());
-                    LOG.error("Extraction failed for a row", e);
+                } catch (Exception e) {
+                    LOG.error("Failed to extract data ! row {} page {} of {}", row, pageNo, dataFeed.feedName());
+                    LOG.error("Extraction failed for a row. Got a {} as {}", e.getClass(), e.getMessage());
                 }
             }
         }
