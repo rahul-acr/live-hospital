@@ -1,5 +1,6 @@
-package org.social.it.converter;
+package org.social.it.converter.hospital;
 
+import org.social.it.converter.DomainDtoConverter;
 import org.social.it.domain.UsageStatistics;
 import org.social.it.dto.UsageStatsDto;
 import org.springframework.stereotype.Component;

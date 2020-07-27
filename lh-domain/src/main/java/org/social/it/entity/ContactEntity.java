@@ -29,7 +29,6 @@ public class ContactEntity implements Contact {
 
     }
 
-    @Override
     public String phoneNumber() {
         return phoneNumber;
     }

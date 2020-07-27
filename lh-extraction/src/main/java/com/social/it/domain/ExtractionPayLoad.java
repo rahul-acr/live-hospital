@@ -1,11 +1,15 @@
 package com.social.it.domain;
 
+import com.social.it.DataFeed;
+import org.social.it.entity.UnknownHospitalEntity;
+
 public class ExtractionPayLoad {
 
     private final String hospitalName;
     private final String additionalInfo;
     private final int totalBeds;
     private final int vacantBeds;
+    private final DataFeed dataFeed;
 
     private ExtractionPayLoad(Builder builder) {
         if (builder.hospitalName == null || builder.hospitalName.isEmpty())
@@ -14,19 +18,13 @@ public class ExtractionPayLoad {
 
         this.additionalInfo = builder.additionalInfo == null ? null : builder.additionalInfo.trim() ;
 
-        if (builder.totalBeds <= 0)
-            throw new IllegalArgumentException("Total bed can not be zero");
+        if (builder.totalBeds <= 0) throw new IllegalArgumentException("Total bed can not be zero");
         this.totalBeds = builder.totalBeds;
 
+        if(builder.dataFeed == null) throw new IllegalArgumentException("Data feed can not be null");
+        this.dataFeed = builder.dataFeed;
+
         this.vacantBeds = builder.vacantBeds;
-    }
-
-    public static Builder getBuilder() {
-        return new Builder();
-    }
-
-    public String[] keywords() {
-        return hospitalName.split(" ");
     }
 
     public String hospitalName() {
@@ -45,6 +43,18 @@ public class ExtractionPayLoad {
         return vacantBeds;
     }
 
+    public static Builder getBuilder(DataFeed dataFeed) {
+        return new Builder(dataFeed);
+    }
+
+    public DataFeed dataFeed(){
+        return dataFeed;
+    }
+
+    public UnknownHospitalEntity generateHospitalEntity(){
+        return new UnknownHospitalEntity(hospitalName, additionalInfo, dataFeed.feedName(), dataFeed.feedDate());
+    }
+
     @Override
     public String toString() {
         return "ExtractionPayLoad{" +
@@ -61,23 +71,28 @@ public class ExtractionPayLoad {
         private String additionalInfo;
         private int totalBeds;
         private int vacantBeds;
+        private final DataFeed dataFeed;
 
-        public Builder hospitalName(String hospitalName) {
+        private Builder(DataFeed dataFeed){
+            this.dataFeed = dataFeed;
+        }
+
+        public Builder withHospitalName(String hospitalName) {
             this.hospitalName = hospitalName;
             return Builder.this;
         }
 
-        public Builder additionalInfo(String additionalInfo) {
+        public Builder withAdditionalInfo(String additionalInfo) {
             this.additionalInfo = additionalInfo;
             return Builder.this;
         }
 
-        public Builder totalBeds(int totalBeds) {
+        public Builder withTotalBeds(int totalBeds) {
             this.totalBeds = totalBeds;
             return Builder.this;
         }
 
-        public Builder vacantBeds(int vacantBeds) {
+        public Builder withVacantBeds(int vacantBeds) {
             this.vacantBeds = vacantBeds;
             return Builder.this;
         }
