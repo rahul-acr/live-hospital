@@ -18,8 +18,7 @@ import java.util.Optional;
 @Component
 public class HospitalStatusUpdater implements FeedProcessor {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(HospitalStatusUpdater.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HospitalStatusUpdater.class);
 
     @Autowired
     private FeedExtractor feedExtractor;
@@ -36,10 +35,12 @@ public class HospitalStatusUpdater implements FeedProcessor {
         List<HospitalEntity> hospitals = hospitalRepository.findAll();
         final ExtractionResult extractionResult = new ExtractionResult();
         feedExtractor.extract(dataFeed).forEach((epd -> {
-            Optional<HospitalEntity> matchedHospital = hospitalMatcher.match(epd, hospitals);
-            if (matchedHospital.isPresent()) {
-                LOG.info("Updating usage of {} as per {}", matchedHospital.get(), epd);
-                matchedHospital.get().usage().updateUsage(epd.vacantBeds(), epd.totalBeds());
+            Optional<HospitalEntity> matchedHospitalOpt = hospitalMatcher.match(epd, hospitals);
+            if (matchedHospitalOpt.isPresent()) {
+                HospitalEntity matchedHospital = matchedHospitalOpt.get();
+                LOG.info("Updating usage of {} as per {}", matchedHospital, epd);
+                matchedHospital.updateUsage(epd.vacantBeds(), epd.totalBeds());
+                hospitalRepository.save(matchedHospitalOpt.get());
                 extractionResult.addMatch();
             } else {
                 LOG.warn("No match found for {}", epd);

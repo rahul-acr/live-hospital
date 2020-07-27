@@ -3,7 +3,8 @@ package com.social.it.impl;
 import com.social.it.HospitalMatcher;
 import com.social.it.WordDistanceCalculator;
 import com.social.it.domain.ExtractionPayLoad;
-import com.social.it.exception.DataExtractionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.social.it.entity.HospitalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,8 @@ import java.util.Optional;
 
 @Component
 public class SpellErrorTolerantHospitalMatcher implements HospitalMatcher {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SpellErrorTolerantHospitalMatcher.class);
 
     private final static int SPELL_FAULT_TOLERANCE_PERCENTAGE = 10;
 
@@ -31,8 +34,10 @@ public class SpellErrorTolerantHospitalMatcher implements HospitalMatcher {
             }
         }
 
-        DataExtractionException.throwIf(matchCount > 1,
-                "Ambiguous data found for : " + extractionPayLoad);
+        if(matchCount > 1){
+            LOG.warn("Ambiguous data found for {} ", extractionPayLoad);
+            return Optional.empty();
+        }
 
         return Optional.ofNullable(matchedHospital);
     }
