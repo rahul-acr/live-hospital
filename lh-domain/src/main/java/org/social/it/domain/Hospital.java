@@ -1,8 +1,6 @@
 package org.social.it.domain;
 
-import org.bson.types.ObjectId;
-
-public interface Hospital extends Identifiable<ObjectId> {
+public interface Hospital extends MongoIdentifiable {
 
     String name();
 

@@ -66,8 +66,8 @@ public class HospitalEntity implements Hospital {
     }
 
     public void updateUsage(int newVacancy, int newBedCapacity) {
-        if (newVacancy < 0) throw new IllegalArgumentException("Usage can not be negative");
-        if (newBedCapacity <= 0) throw new IllegalArgumentException("Bed capacity can not be negative");
+        if (newVacancy < 0) throw new IllegalArgumentException("Vacancy can not be negative");
+        if (newBedCapacity <= 0) throw new IllegalArgumentException("Bed capacity can not be negative or zero");
         this.usageStatistics = new UsageStatisticsEntity(newBedCapacity, newVacancy);
     }
 

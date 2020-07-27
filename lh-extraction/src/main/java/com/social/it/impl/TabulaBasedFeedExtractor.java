@@ -59,10 +59,10 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
 
             DataExtractionException.throwIf(table == null, "No valid tables found in page");
 
-            LOG.info("{} - 4 total rows found ", table.getRowCount());
+            LOG.info("{} - total rows found ", table.getRowCount());
             for (int row = 4; row < table.getRowCount(); row++) {
                 try {
-                    read(table, row).ifPresent(payLoad -> {
+                    read(dataFeed, table, row).ifPresent(payLoad -> {
                         payLoads.add(payLoad);
                         LOG.info("Added payload {}", payLoad);
                     });
@@ -76,15 +76,15 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
         return payLoads;
     }
 
-    private Optional<ExtractionPayLoad> read(Table table, int rowNum) {
+    private Optional<ExtractionPayLoad> read(DataFeed dataFeed, Table table, int rowNum) {
         String[] nameInfo = nameAdditionalInfoExtractor.extract(getValueFor(table, rowNum, 2));
         // Ignore blank lines
         if (nameInfo[0].trim().isEmpty()) return Optional.empty();
-        ExtractionPayLoad payLoad = ExtractionPayLoad.getBuilder()
-                .hospitalName(nameInfo[0])
-                .additionalInfo(nameInfo[1])
-                .totalBeds(extractNumber(getValueFor(table, rowNum, 3)))
-                .vacantBeds(extractNumber(getValueFor(table, rowNum, 4)))
+        ExtractionPayLoad payLoad = ExtractionPayLoad.getBuilder(dataFeed)
+                .withHospitalName(nameInfo[0])
+                .withAdditionalInfo(nameInfo[1])
+                .withTotalBeds(extractNumber(getValueFor(table, rowNum, 3)))
+                .withVacantBeds(extractNumber(getValueFor(table, rowNum, 4)))
                 .build();
         return Optional.of(payLoad);
     }
