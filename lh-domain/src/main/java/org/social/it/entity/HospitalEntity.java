@@ -65,7 +65,25 @@ public class HospitalEntity implements Hospital {
         return usageStatistics;
     }
 
+    public void updateUsage(int newVacancy, int newBedCapacity) {
+        if (newVacancy < 0) throw new IllegalArgumentException("Usage can not be negative");
+        if (newBedCapacity <= 0) throw new IllegalArgumentException("Bed capacity can not be negative");
+        this.usageStatistics = new UsageStatisticsEntity(newBedCapacity, newVacancy);
+    }
+
     public boolean isPrivate() {
         return isPrivate;
+    }
+
+    @Override
+    public String toString() {
+        return "HospitalEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", additionalInfo='" + additionalInfo + '\'' +
+                ", contact=" + contact +
+                ", usageStatistics=" + usageStatistics +
+                ", isPrivate=" + isPrivate +
+                '}';
     }
 }

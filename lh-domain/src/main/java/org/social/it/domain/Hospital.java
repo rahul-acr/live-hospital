@@ -14,4 +14,6 @@ public interface Hospital extends Identifiable<ObjectId> {
 
     boolean isPrivate();
 
+    void updateUsage(int newVacancy, int newBedCapacity);
+
 }
