@@ -57,7 +57,10 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
                 }
             }
 
-            DataExtractionException.throwIf(table == null, "No valid tables found in page");
+            if(table == null) {
+                LOG.warn("No valid tables found in page {}", pageNo);
+                continue;
+            }
 
             LOG.info("{} - total rows found ", table.getRowCount());
             for (int row = 0; row < table.getRowCount(); row++) {
