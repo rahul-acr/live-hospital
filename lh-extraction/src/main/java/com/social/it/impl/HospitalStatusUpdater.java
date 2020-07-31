@@ -37,13 +37,13 @@ public class HospitalStatusUpdater implements FeedProcessor {
     public ExtractionResult process(DataFeed dataFeed) {
         // Load the data in memory rather querying as data volume is very low
         List<HospitalEntity> hospitals = hospitalRepository.findAll();
-        final ExtractionResult extractionResult = new ExtractionResult();
+        final ExtractionResult extractionResult = new ExtractionResult(dataFeed);
         feedExtractor.extract(dataFeed).forEach((epd -> {
             Optional<HospitalEntity> matchedHospitalOpt = hospitalMatcher.match(epd, hospitals);
             if (matchedHospitalOpt.isPresent()) {
                 HospitalEntity matchedHospital = matchedHospitalOpt.get();
                 LOG.info("Updating usage of {} as per {}", matchedHospital, epd);
-                matchedHospital.updateUsage(epd.vacantBeds(), epd.totalBeds());
+                matchedHospital.updateUsage(epd.vacantBeds(), epd.totalBeds(), dataFeed.feedDate());
                 hospitalRepository.save(matchedHospitalOpt.get());
                 extractionResult.addMatch();
             } else {
