@@ -58,8 +58,8 @@ public class FeedService {
             }
         }
 
-        LocalDate date = LocalDate.now();
-        for (int i = 0; i < days; i++, date = date.minusDays(1)) {
+        LocalDate date = LocalDate.now().minusDays(days);
+        for (int i = 0; i < days; i++, date = date.plusDays(1)) {
             URL resolvedUrl = null;
             for (DateTimeFormatter format : formats) {
                 URL url = new URL(date.format(format));
