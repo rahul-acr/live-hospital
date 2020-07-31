@@ -1,9 +1,7 @@
 package org.social.it.endpoint;
 
-import com.social.it.DataFeed;
-import com.social.it.FeedProcessor;
 import com.social.it.domain.ExtractionResult;
-import com.social.it.domain.PdfDataFeed;
+import org.social.it.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 
 // TODO secure this
 @RestController
@@ -19,11 +19,15 @@ import java.net.URL;
 public class ExtractionEndpoint {
 
     @Autowired
-    private FeedProcessor feedProcessor;
+    private FeedService feedService;
 
     @PostMapping("/feed")
-    public ExtractionResult postFeed(@RequestParam("url") String url) throws IOException {
-        DataFeed dataFeed = new PdfDataFeed(new URL(url));
-        return feedProcessor.process(dataFeed);
+    public ExtractionResult postFeed(@RequestParam("url") String url, @RequestParam("date") LocalDate date) throws IOException {
+        return feedService.feed(new URL(url), date);
+    }
+
+    @PostMapping("/auto")
+    public List<ExtractionResult> autoFeed(@RequestParam(value = "days") int days ) throws IOException {
+        return feedService.autoFeedDataForDays(days);
     }
 }
