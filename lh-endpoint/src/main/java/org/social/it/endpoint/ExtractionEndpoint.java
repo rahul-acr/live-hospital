@@ -1,6 +1,6 @@
 package org.social.it.endpoint;
 
-import com.social.it.domain.ExtractionResult;
+import org.social.it.domain.ExtractionResult;
 import org.social.it.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

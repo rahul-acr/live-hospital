@@ -1,6 +1,6 @@
-package com.social.it;
+package org.social.it;
 
-import com.social.it.domain.ExtractionPayLoad;
+import org.social.it.domain.ExtractionPayLoad;
 import org.social.it.entity.HospitalEntity;
 
 import java.util.List;

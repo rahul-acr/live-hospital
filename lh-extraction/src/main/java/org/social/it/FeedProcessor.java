@@ -1,6 +1,6 @@
-package com.social.it;
+package org.social.it;
 
-import com.social.it.domain.ExtractionResult;
+import org.social.it.domain.ExtractionResult;
 
 public interface FeedProcessor {
 

@@ -1,4 +1,4 @@
-package com.social.it.exception;
+package org.social.it.exception;
 
 public class DataExtractionException extends RuntimeException{
 

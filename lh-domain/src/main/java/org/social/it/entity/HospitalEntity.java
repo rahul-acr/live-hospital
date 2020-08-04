@@ -14,18 +14,20 @@ public class HospitalEntity implements Hospital {
     @Id
     private ObjectId id;
     private String name;
+    private String[] aliases;
+    private String facility;
     private String additionalInfo;
     private ContactEntity contact;
     private UsageStatisticsEntity usageStatistics;
     private boolean isPrivate;
 
-    public HospitalEntity(ObjectId id,
-                          String name,
-                          String additionalInfo,
+    public HospitalEntity(String name,
+                          String[] aliases, String additionalInfo, String facility,
                           ContactEntity contact,
                           boolean isPrivate) {
-        this.id = id;
         this.name = name;
+        this.aliases = aliases;
+        this.facility = facility;
         this.additionalInfo = additionalInfo;
         this.contact = contact;
         this.isPrivate = isPrivate;
@@ -42,6 +44,14 @@ public class HospitalEntity implements Hospital {
 
     public String name() {
         return name;
+    }
+
+    public String[] aliases() {
+        return aliases;
+    }
+
+    public String facility() {
+        return facility;
     }
 
     public String additionalInfo() {

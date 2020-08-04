@@ -6,6 +6,10 @@ public interface Hospital extends MongoIdentifiable {
 
     String name();
 
+    String[] aliases();
+
+    String facility();
+
     String additionalInfo();
 
     Contact contact();

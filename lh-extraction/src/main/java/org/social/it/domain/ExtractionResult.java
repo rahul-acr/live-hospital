@@ -1,6 +1,6 @@
-package com.social.it.domain;
+package org.social.it.domain;
 
-import com.social.it.DataFeed;
+import org.social.it.DataFeed;
 
 import java.time.LocalDate;
 

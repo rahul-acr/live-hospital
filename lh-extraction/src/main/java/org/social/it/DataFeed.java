@@ -1,4 +1,4 @@
-package com.social.it;
+package org.social.it;
 
 import java.time.LocalDate;
 

@@ -1,10 +1,10 @@
-package com.social.it.impl;
+package org.social.it.impl;
 
-import com.social.it.DataFeed;
-import com.social.it.FeedExtractor;
-import com.social.it.FeedProcessor;
-import com.social.it.HospitalMatcher;
-import com.social.it.domain.ExtractionResult;
+import org.social.it.DataFeed;
+import org.social.it.FeedExtractor;
+import org.social.it.FeedProcessor;
+import org.social.it.HospitalMatcher;
+import org.social.it.domain.ExtractionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.social.it.entity.HospitalEntity;

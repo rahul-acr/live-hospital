@@ -1,9 +1,9 @@
 package org.social.it.service;
 
-import com.social.it.DataFeed;
-import com.social.it.FeedProcessor;
-import com.social.it.domain.ExtractionResult;
-import com.social.it.domain.PdfDataFeed;
+import org.social.it.DataFeed;
+import org.social.it.FeedProcessor;
+import org.social.it.domain.ExtractionResult;
+import org.social.it.domain.PdfDataFeed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
