@@ -12,9 +12,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,7 +35,7 @@ public class FeedService {
     public List<ExtractionResult> autoFeedDataForDays(int days) throws IOException {
         List<ExtractionResult> results = new ArrayList<>();
         results.addAll(feedForResource(resourceLoader.getResource("classpath:pvt_hospital_url_patterns"), days));
-        results.addAll(feedForResource(resourceLoader.getResource("classpath:pvt_hospital_url_patterns"), days));
+        results.addAll(feedForResource(resourceLoader.getResource("classpath:govt_hospital_url_patterns"), days));
         return results;
     }
 
@@ -50,9 +49,7 @@ public class FeedService {
         ArrayList<DateTimeFormatter> formats = new ArrayList<>();
         ArrayList<ExtractionResult> results = new ArrayList<>();
 
-        {
-            File file = resource.getFile();
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 formats.add(DateTimeFormatter.ofPattern(line));
             }
