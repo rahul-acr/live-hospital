@@ -5,7 +5,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,12 +17,6 @@ public class PdfDataFeed implements DataFeed {
     private final LocalDate feedDate;
     private final PDDocument document;
     private final String feedName;
-
-    public PdfDataFeed(File file) throws IOException {
-        document = PDDocument.load(file);
-        feedDate = LocalDate.now();
-        feedName = file.getName();
-    }
 
     public PdfDataFeed(URL url, LocalDate feedDate) throws IOException {
         LOG.info("Loading PDF from url {}", url);

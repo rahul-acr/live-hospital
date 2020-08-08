@@ -1,5 +1,7 @@
 package org.social.it.domain;
 
+import java.time.LocalDate;
+
 public interface Hospital extends MongoIdentifiable {
 
     String name();
@@ -12,6 +14,6 @@ public interface Hospital extends MongoIdentifiable {
 
     boolean isPrivate();
 
-    void updateUsage(int newVacancy, int newBedCapacity);
+    void updateUsage(int newVacancy, int newBedCapacity, LocalDate updateDate);
 
 }

@@ -7,6 +7,8 @@ import org.social.it.domain.UsageStatistics;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+
 @Document("hospitals")
 public class HospitalEntity implements Hospital {
     @Id
@@ -21,25 +23,14 @@ public class HospitalEntity implements Hospital {
                           String name,
                           String additionalInfo,
                           ContactEntity contact,
-                          boolean isPrivate,
-                          int totalBedCapacity,
-                          int vacantBeds) {
+                          boolean isPrivate) {
         this.id = id;
         this.name = name;
         this.additionalInfo = additionalInfo;
         this.contact = contact;
         this.isPrivate = isPrivate;
-        this.usageStatistics = new UsageStatisticsEntity(totalBedCapacity, vacantBeds);
     }
 
-    public HospitalEntity(String name,
-                          String additionalInfo,
-                          ContactEntity contact,
-                          boolean isPrivate,
-                          int totalBedCapacity,
-                          int vacantBeds) {
-        this(null, name, additionalInfo, contact, isPrivate, totalBedCapacity, vacantBeds);
-    }
 
     private HospitalEntity() {
 
@@ -65,10 +56,10 @@ public class HospitalEntity implements Hospital {
         return usageStatistics;
     }
 
-    public void updateUsage(int newVacancy, int newBedCapacity) {
+    public void updateUsage(int newVacancy, int newBedCapacity, LocalDate updateDate) {
         if (newVacancy < 0) throw new IllegalArgumentException("Vacancy can not be negative");
         if (newBedCapacity <= 0) throw new IllegalArgumentException("Bed capacity can not be negative or zero");
-        this.usageStatistics = new UsageStatisticsEntity(newBedCapacity, newVacancy);
+        this.usageStatistics = new UsageStatisticsEntity(newBedCapacity, newVacancy, updateDate);
     }
 
     public boolean isPrivate() {

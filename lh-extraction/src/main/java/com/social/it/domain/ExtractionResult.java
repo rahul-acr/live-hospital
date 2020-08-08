@@ -1,8 +1,17 @@
 package com.social.it.domain;
 
+import com.social.it.DataFeed;
+
+import java.time.LocalDate;
+
 public class ExtractionResult {
+    private final DataFeed dataFeed;
     private int failedRecords;
     private int matchedRecords;
+
+    public ExtractionResult(DataFeed dataFeed) {
+        this.dataFeed = dataFeed;
+    }
 
     public void addMatch() {
         matchedRecords++;
@@ -20,7 +29,15 @@ public class ExtractionResult {
         return matchedRecords;
     }
 
-    public int failedToMatch() {
+    public int getFailedRecords() {
         return failedRecords;
+    }
+
+    public String getFeedName() {
+        return dataFeed.feedName();
+    }
+
+    public LocalDate getFeedDate() {
+        return dataFeed.feedDate();
     }
 }

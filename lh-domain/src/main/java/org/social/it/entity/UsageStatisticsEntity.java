@@ -10,10 +10,10 @@ public class UsageStatisticsEntity implements UsageStatistics {
     private int vacantBeds;
     private LocalDate lastUpdated;
 
-    public UsageStatisticsEntity(int totalBedCapacity, int vacantBeds) {
+    public UsageStatisticsEntity(int totalBedCapacity, int vacantBeds, LocalDate updateDate) {
         this.totalBedCapacity = totalBedCapacity;
         this.vacantBeds = vacantBeds;
-        this.lastUpdated = LocalDate.now();
+        this.lastUpdated = updateDate;
     }
 
     private UsageStatisticsEntity(){
