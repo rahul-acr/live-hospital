@@ -1,12 +1,12 @@
 package org.social.it.impl;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.social.it.DataFeed;
 import org.social.it.FeedExtractor;
 import org.social.it.domain.ExtractionPayLoad;
 import org.social.it.exception.DataExtractionException;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import technology.tabula.ObjectExtractor;
 import technology.tabula.Table;
@@ -105,8 +105,7 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
                 String additionalInfo = matcher.group(2).toLowerCase();
                 // drop additional info if its not proper
                 if(!additionalInfo.contains("satellite")
-                        && !additionalInfo.contains("stadium")
-                        && !additionalInfo.contains("suspect")){
+                        && !additionalInfo.contains("stadium")){
                     additionalInfo = "";
                 }
                 return new String[]{matcher.group(1), additionalInfo};
