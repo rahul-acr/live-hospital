@@ -1,9 +1,9 @@
-package com.social.it.impl;
+package org.social.it.impl;
 
-import com.social.it.DataFeed;
-import com.social.it.FeedExtractor;
-import com.social.it.domain.ExtractionPayLoad;
-import com.social.it.exception.DataExtractionException;
+import org.social.it.DataFeed;
+import org.social.it.FeedExtractor;
+import org.social.it.domain.ExtractionPayLoad;
+import org.social.it.exception.DataExtractionException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +70,8 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
                         LOG.info("Added payload {}", payLoad);
                     });
                 } catch (Exception e) {
-                    LOG.error("Failed to extract data ! row {} page {} of {}", row, pageNo, dataFeed.feedName());
-                    LOG.error("Extraction failed for a row. Got a {} as {}", e.getClass(), e.getMessage());
+                    LOG.warn("Failed to extract data ! row {} page {} of {}", row, pageNo, dataFeed.feedName());
+                    LOG.warn("Extraction failed for a row. Got a {} as {}", e.getClass(), e.getMessage());
                 }
             }
         }
@@ -102,7 +102,14 @@ public class TabulaBasedFeedExtractor implements FeedExtractor {
             line = line.replace("#", "");
             Matcher matcher = PATTERN.matcher(line);
             if (matcher.find()) {
-                return new String[]{matcher.group(1), matcher.group(2)};
+                String additionalInfo = matcher.group(2).toLowerCase();
+                // drop additional info if its not proper
+                if(!additionalInfo.contains("satellite")
+                        && !additionalInfo.contains("stadium")
+                        && !additionalInfo.contains("suspect")){
+                    additionalInfo = "";
+                }
+                return new String[]{matcher.group(1), additionalInfo};
             }
             return new String[]{line, ""};
         }

@@ -1,4 +1,4 @@
-package com.social.it;
+package org.social.it;
 
 public interface WordDistanceCalculator {
     /**

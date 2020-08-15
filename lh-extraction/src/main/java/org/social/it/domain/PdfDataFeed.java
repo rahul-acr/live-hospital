@@ -1,6 +1,6 @@
-package com.social.it.domain;
+package org.social.it.domain;
 
-import com.social.it.DataFeed;
+import org.social.it.DataFeed;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

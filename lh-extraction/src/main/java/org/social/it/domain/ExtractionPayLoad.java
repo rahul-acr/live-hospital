@@ -1,12 +1,12 @@
-package com.social.it.domain;
+package org.social.it.domain;
 
-import com.social.it.DataFeed;
+import org.social.it.DataFeed;
 import org.social.it.entity.UnknownHospitalEntity;
 
 public class ExtractionPayLoad {
 
     private final String hospitalName;
-    private final String additionalInfo;
+    private final String facility;
     private final int totalBeds;
     private final int vacantBeds;
     private final DataFeed dataFeed;
@@ -16,7 +16,7 @@ public class ExtractionPayLoad {
             throw new IllegalArgumentException("Invalid hospital name");
         this.hospitalName = builder.hospitalName.trim();
 
-        this.additionalInfo = builder.additionalInfo == null ? null : builder.additionalInfo.trim() ;
+        this.facility = builder.additionalInfo == null ? null : builder.additionalInfo.trim() ;
 
         if (builder.totalBeds <= 0) throw new IllegalArgumentException("Total bed can not be zero");
         this.totalBeds = builder.totalBeds;
@@ -31,8 +31,8 @@ public class ExtractionPayLoad {
         return hospitalName;
     }
 
-    public String additionalInfo() {
-        return additionalInfo;
+    public String facility() {
+        return facility;
     }
 
     public int totalBeds() {
@@ -52,14 +52,14 @@ public class ExtractionPayLoad {
     }
 
     public UnknownHospitalEntity generateHospitalEntity(){
-        return new UnknownHospitalEntity(hospitalName, additionalInfo, dataFeed.feedName(), dataFeed.feedDate());
+        return new UnknownHospitalEntity(hospitalName, facility, dataFeed.feedName(), dataFeed.feedDate());
     }
 
     @Override
     public String toString() {
         return "ExtractionPayLoad{" +
                 "hospitalName='" + hospitalName + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
+                ", additionalInfo='" + facility + '\'' +
                 ", totalBeds=" + totalBeds +
                 ", vacantBeds=" + vacantBeds +
                 '}';

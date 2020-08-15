@@ -1,6 +1,6 @@
-package com.social.it.impl;
+package org.social.it.impl;
 
-import com.social.it.WordDistanceCalculator;
+import org.social.it.WordDistanceCalculator;
 import org.springframework.stereotype.Component;
 
 @Component
