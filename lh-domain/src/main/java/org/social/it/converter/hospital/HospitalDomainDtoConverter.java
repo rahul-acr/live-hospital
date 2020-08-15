@@ -21,6 +21,7 @@ public class HospitalDomainDtoConverter implements DomainDtoConverter<Hospital, 
         dto._id = hospital.getId();
         dto.name = hospital.name();
         dto.additionalInfo = hospital.additionalInfo();
+        dto.facility = hospital.facility();
         dto.contact = contactDomainDtoConverter.convert(hospital.contact());
         dto.usage = usageStatDomainDtoConverter.convert(hospital.usage());
         dto.isPrivate = hospital.isPrivate();
