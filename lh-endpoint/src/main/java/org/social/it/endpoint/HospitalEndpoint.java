@@ -22,20 +22,17 @@ public class HospitalEndpoint {
         return hospitalService.findAll();
     }
 
+    @GetMapping("location-based")
+    public List<HospitalDto> getNearestHospitals(@RequestParam(name = "lat") double latitude,
+                                 @RequestParam(name = "lon") double longitude,
+                                 @RequestParam(name = "limit", required = false, defaultValue = "10") int limit){
+        return hospitalService.findNearestHospitals(latitude, longitude, limit);
+    }
+
     @GetMapping("/{id}")
     public HospitalDto get(@PathVariable ObjectId id){
         return hospitalService.findById(id).orElseThrow(
                 () -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Hospital not found"));
     }
-//
-//    @PostMapping
-//    public HospitalDto post(@RequestBody HospitalDto hospitalDto){
-//        return hospitalService.save(hospitalDto);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public HospitalDto update(@RequestBody HospitalDto hospitalDto){
-//        return hospitalService.update(hospitalDto);
-//    }
 
 }
