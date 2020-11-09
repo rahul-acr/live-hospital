@@ -1,2 +1,2 @@
 # live-hospital
-A tiny server backend to provide live update of hospital beds and facilties
+A server backend to provide live update of covid hospital beds and facilties in West Bengal
